@@ -1,7 +1,5 @@
 const { NotImplementedError } = require("../extensions/index.js");
-
 const { Node } = require("../extensions/list-tree.js");
-
 class BinarySearchTree {
   constructor() {
     this._root = null;
@@ -34,24 +32,6 @@ class BinarySearchTree {
     }
     return this;
   }
-  /* has(data) {
-    // throw new NotImplementedError("Not implemented");
-    if (data === null) {
-      return false;
-    } else if (this._root !== null) {
-      let current = this._root;
-      if (current === null || data === null) {
-        return false;
-      }
-      while (current) {
-        if (data === current.data) return true;
-        if (data < current.data) current = current.left;
-        if (data > current.data) current = current.right;
-      }
-    }
-    return false;
-  }
-  */
   has(data) {
     if (!this._root) return false;
     let current = this._root;
@@ -69,9 +49,21 @@ class BinarySearchTree {
     if (!found) return false;
     return true;
   }
-  find(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  find(data) {
+    if (!this._root) return null;
+    let current = this._root;
+    let found = false;
+    while (current && !found) {
+      if (data < current.data) {
+        current = current.left;
+      } else if (data > current.data) {
+        current = current.right;
+      } else {
+        found = current;
+      }
+    }
+    if (!found) return null;
+    return found;
   }
 
   remove(/* data */) {
