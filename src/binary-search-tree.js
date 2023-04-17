@@ -67,18 +67,27 @@ class BinarySearchTree {
   }
 
   remove(data) {
-    if (!this._root) return;
-    let current = this._root;
-    let found = false;
-    while (current && !found) {
-      if (data < current.data) {
-        current = current.left;
-      } else if (data > current.data) {
-        current = current.right;
-      } else if (data === current.data) {
-        current = null;
-      }
+    this._root = this.deleteRecursive(this._root, data);
+  }
+
+  deleteRecursive(root, data) {
+    if (root == null) {
+      return root;
     }
+    if (data < root.data) {
+      root.left = this.deleteRecursive(root.left, data);
+    } else if (data > root.data) {
+      root.right = this.deleteRecursive(root.right, data);
+    } else {
+      if (root.left == null) {
+        return root.right;
+      } else if (root.right == null) {
+        return root.left;
+      }
+      root.data = this.min(root.right);
+      root.right = this.deleteRecursive(root.right, root.data);
+    }
+    return root;
   }
 
   min() {
